@@ -16,21 +16,20 @@ import reportWebVitals from './reportWebVitals';
     return <div>Hello, {props.name}</div>;
 }*/
 class Welcome extends React.Component {
-    static defaultProps = {
-        name : 'empty'
+    constructor(props) {
+        super(props);
+        this.state = {name : 'HyePark'}
     }
 
     render() {
-        return <div>Hello, {this.props.name}</div>;
+        return <div>Hello, {this.state.name}</div>;
     }
 }
 
 function Welcomes() {
     return (
         <div>
-            <Welcome />
-            <Welcome name="a"/>
-            <Welcome name="z"/>
+            <Welcome name="q"/>
         </div>
     );
 }
