@@ -13,25 +13,35 @@ class Welcome extends React.Component {
         //console.log('constructor 호출');
     }
 
-    static getDerivedStateFromProps(nexProps, prevState) {
+    static getDerivedStateFromProps(nextProps, prevState) {
         console.log("getDerivedStateFromProps 호출");
-        console.log('--- state 값 변경 전 ---');
-        console.log('nexProps', nexProps);
-        console.log('prevState', prevState);
-        prevState.name = nexProps.name;
-        console.log('--- state 값 변경 후 ---');
-        console.log('nexProps', nexProps);
-        console.log('prevState', prevState);
-        // return null;
+        debugger;
+        return null;
+    }
+
+    // 확인 못 함. 아마도 setState를 사용하여 확인 가능한 듯.
+    shouldComponentUpdate(nextprops, nextState) {
+        console.log("sholudComponetUpdate 호출")
+        console.log(nextprops, nextState);
+        debugger;
+        return nextprops != nextState;
+    }
+
+    getSnapshotBeforeUpdate(prevProps, prevState) {
+        console.log("getSnapshotBeforeUpdate 호출")
+        debugger;
+        return null;
+    }
+
+    componentDidUpdate() {
+        console.log("componentDidUpdate 호출");
+        debugger;
     }
 
     render() {
-        //console.log("render 호출");
+        console.log("render 호출");
+        debugger;
         return <div>Hello, {this.state.name}</div>;
-    }
-
-    componentDidMount() {
-        //console.log("componentDidMount 호출");
     }
 }
 
