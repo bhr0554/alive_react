@@ -4,38 +4,35 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-/*ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);*/
-
-/** 함수형 컴포넌트 */
-/*function Welcome(props) {
-    return <div>Hello, {props.name}</div>;
-}*/
-class Welcome extends React.Component {
+class Toggle extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {name : 'HyePark'}
+        this.state = {isToggleOn: true};
+
+        // 콜백에서 `this`가 작동하려면 아래와 같이 바인딩 해주어야 합니다.
+        this.handleClick = this.handleClick.bind(this);
+        //this.handleClick = this.handleClick.bind({sample:'HyePark'});
+        console.log('constructor this', this);
+    }
+
+    handleClick() {
+        console.log('handleClick this', this);
+        this.setState(prevState => ({
+            isToggleOn: !prevState.isToggleOn
+        }));
     }
 
     render() {
-        return <div>Hello, {this.state.name}</div>;
+        return (
+            <button onClick={this.handleClick}>
+                {this.state.isToggleOn ? 'ON' : 'OFF'}
+            </button>
+        );
     }
 }
 
-function Welcomes() {
-    return (
-        <div>
-            <Welcome name="q"/>
-        </div>
-    );
-}
-
 ReactDOM.render(
-    <Welcomes/>,
+    <Toggle />,
     document.getElementById('root')
 );
 // If you want to start measuring performance in your app, pass a function
