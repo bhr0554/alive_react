@@ -4,35 +4,74 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-class Toggle extends React.Component {
+function UserGreeting(props) {
+    return <h1>Welcome back!</h1>;
+}
+
+function GuestGreeting(props) {
+    return <h1>Please sign up.</h1>;
+}
+
+function Greeting(props) {
+    const isLoggedIn = props.isLoggedIn;
+    if (isLoggedIn) {
+        return <UserGreeting />;
+    }
+    return <GuestGreeting />;
+}
+
+function LoginInButton(props) {
+    return (
+        <button onClick={props.onClickHandler}>
+            LogIn
+        </button>
+    );
+}
+
+function LogOutButton(props) {
+    return (
+      <button onClick={props.onClickHandler}>
+          LogOut
+      </button>
+    );
+}
+
+class LoginControl extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {isToggleOn: true};
-
-        // 콜백에서 `this`가 작동하려면 아래와 같이 바인딩 해주어야 합니다.
-        this.handleClick = this.handleClick.bind(this);
-        //this.handleClick = this.handleClick.bind({sample:'HyePark'});
-        console.log('constructor this', this);
+        this.handleLoginClick = this.handleLoginClick.bind(this);
+        this.handleLogOutClick = this.handleLogOutClick.bind(this);
+        this.state = {isLoggedin: false};
     }
 
-    handleClick() {
-        console.log('handleClick this', this);
-        this.setState(prevState => ({
-            isToggleOn: !prevState.isToggleOn
-        }));
+    handleLoginClick() {
+        this.setState({isLoggedin: true});
+    }
+
+    handleLogOutClick() {
+        this.setState({isLoggedin: false});
     }
 
     render() {
+        const isLoggedIn = this.state.isLoggedin;
+        let button;
+        if (isLoggedIn) {
+            button = <LogOutButton onClickHandler={this.handleLogOutClick} />
+        } else {
+            button = <LoginInButton onClickHandler={this.handleLoginClick} />
+        }
+
         return (
-            <button onClick={this.handleClick}>
-                {this.state.isToggleOn ? 'ON' : 'OFF'}
-            </button>
+            <div>
+                <Greeting isLoggedIn={isLoggedIn} />
+                {button}
+            </div>
         );
     }
 }
 
 ReactDOM.render(
-    <Toggle />,
+    <LoginControl />,
     document.getElementById('root')
 );
 // If you want to start measuring performance in your app, pass a function
