@@ -4,40 +4,21 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-function LoginInButton(props) {
+function NumberList(props) {
+    const numbers = props.numbers;
+    const listItems = numbers.map( number =>
+        <li key={number.toString()}>{number}</li>
+    );
+
     return (
-        <button>
-            LogIn
-        </button>
+        <ul>{listItems}</ul>
     );
 }
 
-function LogOutButton(props) {
-    return (
-        <button>
-            LogOut
-        </button>
-    );
-}
-
-function Sample(props) {
-    const unreadMessages = props.unreadMessages;
-
-    return (
-      <div>
-          <h1>Hello!</h1>
-          {unreadMessages.length > 0
-              ? <LoginInButton />
-              : <LogOutButton />
-          }
-      </div>
-    );
-}
-
-const messages = ['React', 'Re: React', 'Re:Re: React'];
+const numbers = [1, 2, 3, 4, 5];
 ReactDOM.render(
-    <Sample unreadMessages={messages} />
-    , document.getElementById('root')
+    <NumberList numbers={numbers}/>,
+    document.getElementById('root')
 );
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
