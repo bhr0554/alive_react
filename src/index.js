@@ -4,40 +4,50 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-function LoginInButton(props) {
+function WarningBanner(props) {
+    if (!props.warn) {
+        return null;
+    }
+
     return (
-        <button>
-            LogIn
-        </button>
+        <div className="warning">
+            Warning!
+        </div>
     );
 }
 
-function LogOutButton(props) {
-    return (
-        <button>
-            LogOut
-        </button>
-    );
+class Page extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {showWarning: true};
+        this.handleToggleClick = this.handleToggleClick.bind(this);
+    }
+
+    componentDidUpdate() {
+        console.log('componentDidUpdate 호출');
+    }
+
+    handleToggleClick() {
+        this.setState(state => ({
+            showWarning: !state.showWarning
+        }));
+    }
+
+    render() {
+        return (
+            <div>
+                <WarningBanner warn={this.state.showWarning} />
+                <button onClick={this.handleToggleClick}>
+                    {this.state.showWarning ? 'Hide' : 'Show'}
+                </button>
+            </div>
+        );
+    }
 }
 
-function Sample(props) {
-    const unreadMessages = props.unreadMessages;
-
-    return (
-      <div>
-          <h1>Hello!</h1>
-          {unreadMessages.length > 0
-              ? <LoginInButton />
-              : <LogOutButton />
-          }
-      </div>
-    );
-}
-
-const messages = ['React', 'Re: React', 'Re:Re: React'];
 ReactDOM.render(
-    <Sample unreadMessages={messages} />
-    , document.getElementById('root')
+    <Page />,
+    document.getElementById('root')
 );
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
