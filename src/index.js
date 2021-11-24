@@ -7,7 +7,7 @@ import reportWebVitals from './reportWebVitals';
 class FlavorForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {value: 'coconut'}
+        this.state = {value: ''}
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -25,11 +25,7 @@ class FlavorForm extends React.Component {
     render() {
         return (
           <form onSubmit={this.handleSubmit}>
-              <select value={this.state.value} onChange={this.handleChange}>
-                  <option value="grapefruit">포도</option>
-                  <option value="coconut">코코넛</option>
-                  <option value="banana">바나나</option>
-              </select>
+              <input type="text" value={this.state.vlaue} onChange={this.handleChange}/>
               <input type="submit" value="확인" />
           </form>
         );
