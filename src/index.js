@@ -7,7 +7,7 @@ import reportWebVitals from './reportWebVitals';
 class FlavorForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {value: ''}
+        this.state = {value: 'textarea 내용입니다.'}
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -25,7 +25,7 @@ class FlavorForm extends React.Component {
     render() {
         return (
           <form onSubmit={this.handleSubmit}>
-              <input type="text" value={this.state.vlaue} onChange={this.handleChange}/>
+              <textarea value={this.state.value} onChange={this.handleChange}/>
               <input type="submit" value="확인" />
           </form>
         );
