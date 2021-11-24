@@ -2,11 +2,42 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import NumberList from "./component/Sample";
+// import NumberList from "./component/Sample";
 
-const numbers = [1, 2, 3, 4, 5];
+class FlavorForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {value: 'coconut'}
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange(event) {
+        this.setState({value:event.target.value});
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        console.log('value', this.state.value);
+    }
+
+    render() {
+        return (
+          <form onSubmit={this.handleSubmit}>
+              <select value={this.state.value} onChange={this.handleChange}>
+                  <option value="grapefruit">포도</option>
+                  <option value="coconut">코코넛</option>
+                  <option value="banana">바나나</option>
+              </select>
+              <input type="submit" value="확인" />
+          </form>
+        );
+    }
+}
+
 ReactDOM.render(
-    <NumberList numbers={numbers}/>,
+    <FlavorForm/>,
     document.getElementById('root')
 );
 // If you want to start measuring performance in your app, pass a function
