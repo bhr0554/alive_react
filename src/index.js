@@ -7,14 +7,20 @@ import reportWebVitals from './reportWebVitals';
 class FlavorForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {value: 'textarea 내용입니다.'}
+        this.state = {value: ['coconut']}
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
-        this.setState({value:event.target.value});
+        console.log('selectedOptions', event.target.selectedOptions);
+
+        let values = Array.from(
+            event.target.selectedOptions,
+            ( option => option.value)
+        );
+        this.setState({value: values});
     }
 
     handleSubmit(event) {
@@ -24,10 +30,14 @@ class FlavorForm extends React.Component {
 
     render() {
         return (
-          <form onSubmit={this.handleSubmit}>
-              <textarea value={this.state.value} onChange={this.handleChange}/>
-              <input type="submit" value="확인" />
-          </form>
+            <form onSubmit={this.handleSubmit}>
+                <select multiple={true} value={this.state.value} onChange={this.handleChange}>
+                    <option value="grapefruit">포도</option>
+                    <option value="coconut">코코넛</option>
+                    <option value="banana">바나나</option>
+                </select>
+                <input type="submit" value="확인" />
+            </form>
         );
     }
 }
