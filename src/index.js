@@ -2,10 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import FileInput from "./component/FileInput";
+import MultiInput from "./component/MultiInput";
 
 ReactDOM.render(
-    <FileInput/>,
+    <MultiInput/>,
     document.getElementById('root')
 );
 // If you want to start measuring performance in your app, pass a function
