@@ -34,12 +34,14 @@ class App1 extends React.Component {
             case 3 :
                 this.setState({question : ctg[this.state.sltCtg1].a[this.state.sltCtg2].a[this.state.sltAcc].q});
                 break;
+            default :
+                this.setState({question : '결제해 드리겠습니다.'});
+                break;
         }
     }
 
     clickNo() {
         const ctg = this.props.ctg;
-
         let step = this.state.step;
 
         switch (step) {
@@ -73,11 +75,17 @@ class App1 extends React.Component {
     }
 
     render() {
+        let buttonYes, buttonNo;
+        if(this.state.step < 4) {
+            buttonYes = <button value="예" onClick={this.clickYes}>예</button>;
+            buttonNo = <button value="아니오" onClick={this.clickNo}>아니오</button>;
+        }
+
         return(
             <>
                 <span>{this.state.question}</span>
-                <button value="예" onClick={this.clickYes}>예</button>
-                <button value="아니오" onClick={this.clickNo}>아니오</button>
+                {buttonYes}
+                {buttonNo}
             </>
         )
     }
