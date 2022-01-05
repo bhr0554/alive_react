@@ -9,7 +9,7 @@ class App1 extends React.Component {
             step : 1
             ,sltCtg1 : 0
             ,sltCtg2 : 0
-            ,sltAcc : 0
+            ,sltCtg3 : 0
             ,question: this.props.ctg[0].q
         }
 
@@ -22,29 +22,27 @@ class App1 extends React.Component {
 
         //this.setState({step : this.state.step++});
         this.state.step++;
-        let step = this.state.step;
+        const step = this.state.step;
+        let ctgTmp = ctg[this.state.sltCtg1];
 
-        switch (step) {
-            case 1 :
-                this.setState({question : ctg[this.state.sltCtg1].q});
-                break;
-            case 2 :
-                this.setState({question : ctg[this.state.sltCtg1].a[this.state.sltCtg2].q});
-                break;
-            case 3 :
-                this.setState({question : ctg[this.state.sltCtg1].a[this.state.sltCtg2].a[this.state.sltAcc].q});
-                break;
-            default :
-                this.setState({question : '결제해 드리겠습니다.'});
-                break;
+        // 질문 세틸
+        if(step > 3) {
+            this.setState({question : '결제해 드리겠습니다.'});
+        } else {
+            if (step != 1 && step < 4) {
+                for(let i=2; i<=step; i++) {
+                    ctgTmp = ctgTmp.a[this.state['sltCtg'+i]];
+                }
+            }
+            this.setState({question : ctgTmp.q});
         }
+
     }
 
     clickNo() {
         const ctg = this.props.ctg;
-        let step = this.state.step;
 
-        switch (step) {
+        switch (this.state.step) {
             case 1 :
                 //this.setState({sltCtg1: this.state.sltCtg1++});
                 this.state.sltCtg1++;
@@ -63,13 +61,13 @@ class App1 extends React.Component {
                 this.setState({question : ctg[this.state.sltCtg1].a[this.state.sltCtg2].q});
                 break;
             case 3 :
-                //this.setState({sltAcc: this.state.sltAcc++});
-                this.state.sltAcc++;
-                if(ctg[this.state.sltCtg1].a[this.state.sltCtg2].a.length <= this.state.sltAcc) {
-                    this.state.sltAcc = 0;
+                //this.setState({sltCtg3: this.state.sltCtg3++});
+                this.state.sltCtg3++;
+                if(ctg[this.state.sltCtg1].a[this.state.sltCtg2].a.length <= this.state.sltCtg3) {
+                    this.state.sltCtg3 = 0;
                 }
 
-                this.setState({question : ctg[this.state.sltCtg1].a[this.state.sltCtg2].a[this.state.sltAcc].q});
+                this.setState({question : ctg[this.state.sltCtg1].a[this.state.sltCtg2].a[this.state.sltCtg3].q});
                 break;
         }
     }
